@@ -13,11 +13,11 @@ that will show in the window of a standard #10 envelope.
 
 Here are the steps that you need to take:
 
-#. Create a CSS style sheet to format your printed notices
-#. Set the `NoticeCSS` system preferrence to point to your style sheet
-#. Set up the print section of the notices to print
-#. Enable `print` under Overdue Notice Triggers for the notices that you want to print
-#. Set up the `gather_print_notices.pl` cron job
+1. Create a CSS style sheet to format your printed notices
+2. Set the `NoticeCSS` system preferrence to point to your style sheet
+3. Set up the print section of the notices to print
+4. Enable `print` under Overdue Notice Triggers for the notices that you want to print
+5. Set up the `gather_print_notices.pl` cron job
 
 The `gather_print_notices.pl` cron job will generate and email an HTML
 attachment which is styled using the CSS in step 1. When you view that
