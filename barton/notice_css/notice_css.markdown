@@ -112,6 +112,10 @@ You will want to replicate this process for all of your overdue notices, adding 
 <!-- Enable `print` under Overdue Notice Triggers for the notices that you want to print --> 
 ### Enable `print` under Overdue Notice Triggers for notices
 
+Go to Home > Tools > Notice triggers, and click the checkbox under `Print` for any notices that have `Email` checked.
+
+> ![Overdue triggers](images/overdue_triggers_print_checkbox.png)
+
 <!-- Set up the `gather_print_notices.pl` cron job --> 
 ### Set up the `gather_print_notices.pl` cron job 
 
