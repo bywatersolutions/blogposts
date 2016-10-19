@@ -4,9 +4,9 @@
 
 ## Monday -- Nelsonville Branch
 
-### Meeting Nick
+### Meeting the director, Nick Tepe
 
-I started the day talking to Nick [last name?] FIX-ME and Owen Leonard [Web design, and ByWater contact]. We chatted for a few minutes; we talked about Nick's background [PhD in Philosophy, then moved into the library at Columbus -- "I realized immediately that that's what I should have been doing all along"].
+I started the day talking to Nick Tepe "Pronounced like 'peppy'" and Owen Leonard [Web design, and ByWater contact]. We chatted for a few minutes; we talked about Nick's background [PhD in Philosophy, then moved into the library at Columbus -- "I realized immediately that that's what I should have been doing all along"].
 
 Nick explained that the Columbus library system had a home-grown ILS built in Cobol in the early 80s. They had a programing staff of 12. In the early 90s, they realized that they were very over-committed to that system, and they needed to either a) sell the system commercially so that they could amortize their programmer cost over multiple libraries, or b) phase out their programmer staff... they eventually did the latter. Nick was impressed with the knowledge of the programming staff, and said that he liked the flexibility of being able add new features. During the analysis phase, it was determined that the one thing that the in-house system did better than anything else on the market was holds and branch transfers. Nick got a wistful look and said "I've never worked with a system that did a better job with that."
 
@@ -40,10 +40,31 @@ Owen's original plan was perhaps for me to talk to the cataloging staff on Monda
 ## Tuesday -- Circulation
 
 ### Morning -- Nelsonville 
-* Book drop
+I went back down to the Nelsonville circ desk, to check in on the morning return of book-drop items. They were also working on returning items delivered by Cargo. Again, part of their work flow involved grouping items -- this time it was the items on hold, identified by the hold slips, which were held in the books like bookmarks. That *isn't* anything that Koha could really improve on from a process perspective, but it did mean that the staff didn't have to switch focus between checking in items and capturing holds.
+
+I talked with Mary, one of the staff whom I had seen but not talked to on Monday -- she gave me a bit of a running cometary on what she was doing as she was doing her work, which was quite helpful. Here are a few of the things she said along the way:
+  
+* Making eye contact with patrons is important, and this is hard to do when scanning items for checkout.
+* There's an ms-dos type window (probably some batch file running periodically). The staff thinks that this is part of the offline circ backup. It appears on the screen for a quarter of a second, then disappears. It's very distracting.
+* Mary said that the scanner beeps, regardless of whether a barcode is read correctly or not... I mentioned that Koha best practices are to turn the scanner beep off, and use Koha's sounds instead... I could tell that this registered with her, but I don't think that she knew how to make that happen.
+* They use sticky-dots to identify new items. It never occurred to me that the reason that libraries use those is because _they're easy to remove_. "Oh, that item isn't new any more". _*PEEL.*_
+* A patron returned several DVDs -- one of the cases was missing the disk, and she caught that on the fly... she said "I was lucky that I caught that while the patron was still here."
+    * That got me thinking that it would be helpful to put a hint on the overdues email for CDs and DVDs saying "Please remember to make sure the disk is in the case when you return it"... we could add a "patron\_message" to the itemtypes table...
+* There was a kit containing a scratched CD and a broken jewel case. She sent this off for repair. She checked to see if there were any holds on the item. "If there are holds, we put a higher priority on the repair, because someone's waiting for it". Common sense, but I never would have considered it.
+* Mary mentioned that it doesn't make sense for the "Currently available" facet *not* to show, at least on the staff client. I think she has a point, although I'd hate to have to do that work.
+
+Mary's comment about eye contact made me think about and watch for the customer service aspects of the circ desk (which isn't quite the right word, because library patrons aren't customers, but 'human intetraction' doesn't connote the same type of helpfulness). She left, and I spent the rest of the morning working with Lorinda, who'se a real vetran -- she's worked in the library for 22 years, and is obviously a wealth of institutional knowledge.
+
+Lorinda was checking items in and asked if the patron would like to put a hold on the next item in the series. I asked about that (because I had customer service on my mind). She said "Now that you mention it, that is something I've wondered about...". She proceeded to run a search on the series title, which had more than 20 titles.
+
+"From the search results, I can select the first three, and place a hold... but if I navigate to the next screen and place a hold on a 4th item, it drops the selections from the first page". I thought about creating a list, but that seemed like too much overhead. This bothered me... I thought about it over night and opened the search screen, poked around in the help pages, and came to [adding items to carts](http://manual.koha-community.org/3.22/en/cart.html), which 
+doesn't require as many steps.
+
+The one thing that I noticed about work-flow is that searching for holds on the holds shelf is a slowdown, and there's time taken grooming and reorganizing that shelf. I wonder if the holds over report might help clearing a few items.
 
 ### Afternoon -- Athens 
-[planned]
-* Working in busy circ desk, seeing work flow under pressure.
+
+Owen and I talked over lunch, then I drove back to Athens. The Athens library is spacious and has large windows providing a lot of natural light. The circulation area is round, with four check-out stations facing North, South, East and West. To the left of the Circ desk were bicycles for checkout.![bicycles for checkout](https://lh3.googleusercontent.com/68R6iPwIox604q-BRfiMrXFZHQCLQ3ULUkUxxyP4o_F34t_Cnt3cBEAwuwY8BALsgB3nw65uV6Kfi8EZT_KgBeN63OhXStD7Btegoi7T1zLu9GON9oH-dPwzVPg0U9ppXYNa850Oo1dRxn-4TosZJqM-gadHZ-4-_JPqJiWeTZK6zqSdk_jy1puzxTG8jVgCOS-OV_pZQMhZ_otnloVAxyZuP-Jm25gRiwbGzgshN0sp3IuGQeXBydX2fE7CNQ6bNXxodTVoU1DWvBnOdcAoz2eDnn71OcMhpKwmKwoauRS-Z8OEENPJUUsgwL-Je6VAUCDOdGV8xrgP7CrncgGG56IZ7-A1zz635Q7-VzwIeERsQUlB252QFRdoe7v1QoLOXMa7JrvRN2eMtOrz9-SA8Afa7_bmZPG916oX1vHwWJi-Uf3GD7mkcKJZ3oTHe1LTvkFo65tq1H8ujex7hsUtHg2IINeVBW-hwtwVdYGpoDl2_UlMAO7bi74G9Uh9ZcoEo_JSBImBy_kcSPywVI-N5trpQCeeU0I3E5Crmnp6xUOqPU1av-C-qptCVf9xIfakb3SDIb04C_E1sA26dQFdPmQNT3asGqdSXkzmSAjGPb0aDkxF2Q=w958-h539-no).
+
 
 ## Wednesday -- Cataloging
