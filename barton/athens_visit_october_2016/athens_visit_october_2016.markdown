@@ -6,7 +6,11 @@
 
 ### Meeting the director, Nick Tepe
 
-I started the day talking to Nick Tepe "Pronounced like 'peppy'" and Owen Leonard [Web design, and ByWater contact]. We chatted for a few minutes; we talked about Nick's background [PhD in Philosophy, then moved into the library at Columbus -- "I realized immediately that that's what I should have been doing all along"].
+I started the day talking to Nick Tepe "Pronounced like 'peppy'" and Owen Leonard [Web design, and ByWater contact].
+
+![Nick Tepe & Owen Leonard](images/nick_and_owen.jpg)
+
+We chatted for a few minutes; we talked about Nick's background [PhD in Philosophy, then moved into the library at Columbus -- "I realized immediately that that's what I should have been doing all along"].
 
 Nick explained that the Columbus library system had a home-grown ILS built in Cobol in the early 80s. They had a programing staff of 12. In the early 90s, they realized that they were very over-committed to that system, and they needed to either a) sell the system commercially so that they could amortize their programmer cost over multiple libraries, or b) phase out their programmer staff... they eventually did the latter. Nick was impressed with the knowledge of the programming staff, and said that he liked the flexibility of being able add new features. During the analysis phase, it was determined that the one thing that the in-house system did better than anything else on the market was holds and branch transfers. Nick got a wistful look and said "I've never worked with a system that did a better job with that."
 
@@ -45,7 +49,7 @@ I went back down to the Nelsonville circ desk, to check in on the morning return
 I talked with Mary, one of the staff whom I had seen but not talked to on Monday -- she gave me a bit of a running cometary on what she was doing as she was doing her work, which was quite helpful. Here are a few of the things she said along the way:
   
 * Making eye contact with patrons is important, and this is hard to do when scanning items for checkout.
-* There's an ms-dos type window (probably some batch file running periodically). The staff thinks that this is part of the offline circ backup. It appears on the screen for a quarter of a second, then disappears. It's very distracting.
+* There's an ms-dos type window (probably some batch file running periodically). The staff thinks that this is part of the offline circ backup. It appears on the screen for a quarter of a  second, then disappears. It's very distracting.
 * Mary said that the scanner beeps, regardless of whether a barcode is read correctly or not... I mentioned that Koha best practices are to turn the scanner beep off, and use Koha's sounds instead... I could tell that this registered with her, but I don't think that she knew how to make that happen.
 * They use sticky-dots to identify new items. It never occurred to me that the reason that libraries use those is because _they're easy to remove_. "Oh, that item isn't new any more". _*PEEL.*_
 * A patron returned several DVDs -- one of the cases was missing the disk, and she caught that on the fly... she said "I was lucky that I caught that while the patron was still here."
@@ -53,7 +57,7 @@ I talked with Mary, one of the staff whom I had seen but not talked to on Monday
 * There was a kit containing a scratched CD and a broken jewel case. She sent this off for repair. She checked to see if there were any holds on the item. "If there are holds, we put a higher priority on the repair, because someone's waiting for it". Common sense, but I never would have considered it.
 * Mary mentioned that it doesn't make sense for the "Currently available" facet *not* to show, at least on the staff client. I think she has a point, although I'd hate to have to do that work.
 
-Mary's comment about eye contact made me think about and watch for the customer service aspects of the circ desk (which isn't quite the right word, because library patrons aren't customers, but 'human intetraction' doesn't connote the same type of helpfulness). She left, and I spent the rest of the morning working with Lorinda, who'se a real vetran -- she's worked in the library for 22 years, and is obviously a wealth of institutional knowledge.
+Mary's comment about eye contact made me think about and watch for the customer service aspects of the circ desk (which isn't quite the right word, because library patrons aren't customers, but 'human interaction' doesn't connote the same type of helpfulness). She left, and I spent the rest of the morning working with Lorinda, whose a real veteran -- she's worked in the library for 22 years, and is obviously a wealth of institutional knowledge.
 
 Lorinda was checking items in and asked if the patron would like to put a hold on the next item in the series. I asked about that (because I had customer service on my mind). She said "Now that you mention it, that is something I've wondered about...". She proceeded to run a search on the series title, which had more than 20 titles.
 
@@ -64,7 +68,46 @@ The one thing that I noticed about work-flow is that searching for holds on the 
 
 ### Afternoon -- Athens 
 
-Owen and I talked over lunch, then I drove back to Athens. The Athens library is spacious and has large windows providing a lot of natural light. The circulation area is round, with four check-out stations facing North, South, East and West. To the left of the Circ desk were bicycles for checkout.![bicycles for checkout](https://lh3.googleusercontent.com/68R6iPwIox604q-BRfiMrXFZHQCLQ3ULUkUxxyP4o_F34t_Cnt3cBEAwuwY8BALsgB3nw65uV6Kfi8EZT_KgBeN63OhXStD7Btegoi7T1zLu9GON9oH-dPwzVPg0U9ppXYNa850Oo1dRxn-4TosZJqM-gadHZ-4-_JPqJiWeTZK6zqSdk_jy1puzxTG8jVgCOS-OV_pZQMhZ_otnloVAxyZuP-Jm25gRiwbGzgshN0sp3IuGQeXBydX2fE7CNQ6bNXxodTVoU1DWvBnOdcAoz2eDnn71OcMhpKwmKwoauRS-Z8OEENPJUUsgwL-Je6VAUCDOdGV8xrgP7CrncgGG56IZ7-A1zz635Q7-VzwIeERsQUlB252QFRdoe7v1QoLOXMa7JrvRN2eMtOrz9-SA8Afa7_bmZPG916oX1vHwWJi-Uf3GD7mkcKJZ3oTHe1LTvkFo65tq1H8ujex7hsUtHg2IINeVBW-hwtwVdYGpoDl2_UlMAO7bi74G9Uh9ZcoEo_JSBImBy_kcSPywVI-N5trpQCeeU0I3E5Crmnp6xUOqPU1av-C-qptCVf9xIfakb3SDIb04C_E1sA26dQFdPmQNT3asGqdSXkzmSAjGPb0aDkxF2Q=w958-h539-no).
+Owen and I talked over lunch, then I drove back to Athens. The Athens library is spacious and has large windows providing a lot of natural light. The circulation area is round, with four check-out stations facing North, South, East and West. To the left of the Circ desk were bicycles for checkout.
 
+![bicycles for checkout](images/bicycles.jpg)
 
-## Wednesday -- Cataloging
+Athens is the largest library in the system, and the circulation desk is busy enough that the check-out and return functions are handled in separate areas. The Athens County Public Library system doesn't charge daily fines -- they do charge replacement fees for lost items, but that's it. This means that _all_ items may be returned in the book drop, and the circulation desk is focused entirely helping patrons. Athens doesn't use any type of library Kiosk system for computer usage -- the circ staff simply hands out cards for computers in use.
+
+![cards for computers in use](images/computers_in_use.jpg)
+
+Marilyn showed me the check-in process. She noted that the staff relies a great deal on the differences in sounds between successful returns, mis-scanned barcodes and items with holds. She also mentioned that paying close attention to the screen during check-in and check-out is critical -- Koha can make the text on the screen as big as they want, but if the circ staff isn't looking at the screen, errors will occur.
+
+Once items are checked in, items go on a series of shelves in the returns area, where they are sorted, placed on carts, and shelved. The shelving is largely done by volunteers.
+
+FIX-ME -- get name --, works as the volunteer coordinator for the Athens branch. He's detail oriented and had questions about the order of items displayed on the checkout screen -- the most recent items are added at the bottom of the list. This means that in the event that someone wants to check an item in the list, they have to scroll to the bottom, which is an issue for patrons with lots of checkouts. I checked bugzilla, but didn't find anything.
+
+Thanks to Marilyn Zwayer, the branch manager at Athens, as well as Jenny, Amber and Brian working circ and returns, as well as several others whose names I'm afraid that I missed.
+
+## Wednesday
+
+### Morning -- Cataloging
+
+Athens has two catalogers, Terry and Bethany, who work as a tight team. Terry walked me through the cataloging process, they don't use acquisitions, so most of their records are copy-catalogued via Z39.50. Items are added manually. Owen had set up a page containing custom reports for the catalogers, containing reports like books missing ISBN.
+
+Terry mentioned that the addition of batch item modification had changed the way they do cataloging, because it enabled them to do a lot more cataloging far in advance, and then simply mark the items as available as batches were received.
+
+I told them about the `UpdateNotForLoanStatusOnCheckin` system preference, which should eliminate the need for the bulk update -- items could be sent to branches and would automatically change status when they were scanned at the branch. Coincidentally, Owen arrived shortly after; he said that he had looked at that system preference, and found that it didn't _quite_ fit their process in some important way. I'll have to follow up with him about that.
+
+Terry and Bethany talked a lot about processes and work-flows. The previous catalogers, had kept a fairly tight rein on batch item deletion (understandable, considering its history in Koha)... but this caused issues in the branches, because items tended to end up back on the shelves, because staff are very proactive about checking items in and getting them re-shelved -- so the branch managers at each branch now have permissions to run batch deletions. This has worked well for them.
+
+Terry asked me about the punctuation on the search results page -- there's a period either in the template or in the XSLT after the Author name and dates field -- they were driving themselves nuts because they couldn't tell if that had been added to the marc record or whether it was being added by Koha itself. I showed them how to export the marc records so they could see with certainty.
+
+They had tried to use the advanced marc editor, but found that it wasn't quite working for them -- they're looking forward to seeing it in action once it comes out of beta. They're going to attend the advanced editor macros webinar, and that may clear up some questions.
+
+### Afternoon -- Circulation at The Plains branch
+
+I talked with Ken, the branch manager at The Plains (Yes, it's the name of a town. Ohio has interesting place names).
+
+Ken has been working at the Library for 20+ years. He's an interesting combination of very experienced, with good technical knowledge, and laid back. He's seen the entire history of Koha at Athens.
+
+I asked if there were any issues that he'd seen... there were only two of any consequence -- he was bothered by the fact that koha only shows facets for items on the current search page, and also, as a branch manager, he would like to edit shelving locations on items -- permissions he doesn't currently have. I was able to check on their ``maxRecordsForFacets`` settings and looked up the permissions for editing items. I gave Owen recommendations on setting the ``edit\_items`` and ``edit\_items\_restricted`` permissions, as well as the ``subfieldsToAllowForRestrictedEditing`` system-preference, which should address both issues.
+
+## Thursday
+
+### Athens Circ, round II
