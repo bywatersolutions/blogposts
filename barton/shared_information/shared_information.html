@@ -1,0 +1,120 @@
+<h1 id="sharing-information-in-the-koha-community.">Sharing information in the Koha community.</h1>
+<p>One of the strongest parts of an open source community is the way that information is shared among its members. This happens in a number of different ways. We share information in mailing lists, on IRC, via bug reports and via the Koha wiki. When you're first getting started, joining the IRC channel and subscribing to the mailing list is a great way to join the community, both to benefit from the knowledge of others, and to contribute to the dialog. This raw information is collated in various ways -- via <a href="http://dashboard.koha-community.org/">dashboards</a>, in the form of <a href="http://git.koha-community.org/gitweb/?p=koha.git;a=tree">source code</a>, and in <a href="https://koha-community.org/documentation/">documentation</a>.</p>
+<p>Most of the aggregated information seems to require some special knowledge -- the ability to program, the expertise to write correct documentation with the full knowledge of the software that backs it up. Once you've lurked on the mailing list for a while, and gotten to know some of the IRC regulars, often, it's difficult to know where to take the next step in terms of contributing knowledge.</p>
+<p>One place where it's easy to start and still add real useful information is on the Koha wiki's <a href="https://wiki.koha-community.org/wiki/Category:Shared_resources">Shared resources</a> page. This started with the <a href="https://wiki.koha-community.org/wiki/SQL_Reports_Library">SQL Reports Library</a> and <a href="https://wiki.koha-community.org/wiki/HTML_%26_CSS_Library">HTML &amp; CSS Library</a>, but the page has been expanded to include other types of information.</p>
+<p>I'm going to add a &quot;Hardware known to work with Koha&quot; page to the wiki, here's the information that I've harvested from the ByWater mailing list so far:</p>
+<h2 id="printers">Printers</h2>
+<h3 id="by-manufacturer">By manufacturer</h3>
+<ul>
+<li>Bixolon
+<ul>
+<li>SPR 350 (not verified as working)</li>
+</ul></li>
+<li>Dymo
+<ul>
+<li>LabelWriter 400</li>
+<li>LabelWriter 400 Turbo</li>
+<li>LabelWriter 450 twin Turbo
+<ul>
+<li>&quot;on one side I print spine labels on 1 inch x 1 inch labels and the other side I have set up to print out author,title and accession date on &quot;address labels&quot;. What a time saver and the best part was the printer only cost $100.&quot;</li>
+</ul></li>
+</ul></li>
+<li>Epson
+<ul>
+<li>T-20</li>
+<li>TM-T88III
+<ul>
+<li>http://www.nexpresslibrary.org/go-live/configure-your-receipt-printers/</li>
+</ul></li>
+<li>T88IV</li>
+<li>T88V</li>
+<li>TSP100</li>
+<li>TSP143LAN
+<ul>
+<li>Ubuntu 12.04.
+<ul>
+<li>https://wiki.koha-community.org/wiki/TSP100_thermal_receipt_printers_on_Ubuntu_12.04</li>
+<li>http://bywatersolutions.com/2014/03/07/receipt-printers-ubuntu-koha/</li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li>POS-X
+<ul>
+<li>EVO-PT3-1HUE
+<ul>
+<li>&quot;This is a great printer. Fast, and easy to setup on the network.&quot;</li>
+</ul></li>
+</ul></li>
+<li>Star
+<ul>
+<li>SP 512</li>
+<li>TSP100
+<ul>
+<li>&quot;Stars were the most reliable and relatively easy to install.&quot;</li>
+<li>&quot;They are quiet, fast and it uses the thermal paper.&quot;</li>
+</ul></li>
+<li>TSP 600</li>
+<li>TSP 600 Plus
+<ul>
+<li>&quot;I know within our library group we have these receipt printers working well.&quot;</li>
+</ul></li>
+</ul></li>
+<li>Zebra
+<ul>
+<li>GK420T Spine Label Printer</li>
+<li>Advanced desktop label printers
+<ul>
+<li>https://www.zebra.com/us/en/products/printers/desktop/advanced-desktop-printers.html</li>
+<li>&quot;They're not cheap, but they work very well for us. The quality of the labels is very good and the print layout options are very flexible.&quot;</li>
+</ul></li>
+<li>TLP 2844
+<ul>
+<li>&quot;Our Zebra TLP 2844 printers are, unfortunately, not interacting with Koha. We copy the call number from Koha and paste it into the free ZebraDesigner software, add line breaks, and print. (I use the ZebraDesigner software also to print barcodes.)<br /> I <em>wish</em> the Zebra printers would interact with Koha to print spine labels, but we can't get Koha to format the LC call numbers on spine labels with the line breaks where we want them. (Not with the Zebra printers, and certainly not with the sheets of labels.)&quot;</li>
+</ul></li>
+</ul></li>
+</ul>
+<h3 id="notes-about-setting-up-printers">Notes about setting up printers</h3>
+<h4 id="chrome">Chrome</h4>
+<ol style="list-style-type: decimal">
+<li>Open Chrome</li>
+<li>Go to the 3 horizontal lines in the upper left that take you to settings etc.</li>
+<li>Choose print
+<ol style="list-style-type: decimal">
+<li>Set the receipt printer as the printer</li>
+<li>Go to the +More setting</li>
+<li>Choose margins
+<ol style="list-style-type: decimal">
+<li>Set to minimum</li>
+<li>Unclick headers and footers</li>
+</ol></li>
+</ol></li>
+<li>I set up the home page in settings/on startup</li>
+<li>Close Chrome</li>
+<li>Make a shortcut for Chrome
+<ol style="list-style-type: decimal">
+<li>Right click on the shortcut, choose properties</li>
+<li>Add &quot;--kiosk-prinng&quot; to the end of the target (d't include the quotes, you need two dashes before &quot;kiosk&quot; and one dash after)</li>
+</ol></li>
+<li>Launch Chrome from that shortcut.</li>
+</ol>
+<h4 id="firefox">Firefox</h4>
+<ul>
+<li><a href="https://support.mozilla.org/en-US/kb/fix-printing-problems-firefox#w_reset-firefox-printer-setting">Resetting Firefox Print Settings</a></li>
+<li><a href="https://support.mozilla.org/en-US/kb/fix-printing-problems-firefox#w_reset-all-firefox-printer-settings">&quot;The Nuclear Option&quot;</a></li>
+</ul>
+<h2 id="bar-code-scanners">Bar-code Scanners</h2>
+<h3 id="bar-code-scanners-1">Bar-code Scanners</h3>
+<ul>
+<li>Adaptus 3800</li>
+<li>Datalogic Gryphon GD4130BK</li>
+<li>Honeywell
+<ul>
+<li>1900g
+<ul>
+<li>&quot; I started buying Honeywell 1900g series scanners because they have the ability to read 1d and 2D barcodes. We weren't using 2D barcodes on anything yet, but I wanted LCLD to be in a position that if we needed to start scanning any 2D barcodes, we were ready for that without the need for a large hardware upgrade. Since the 1900g scanners were more-or-less the same price as the 3800 series scanners, the upgrade to the more advanced technology made sense to me when I was there. Latah County had circulation of 275,000 items per year at 7 locations and we had about 20 barcode scanners in use at any given time. I budgeted for 3-5 new barcode scanners per year and always made sure I had a supply of 7 new scanners on hand at the beginning of each fiscal year (one new scanner per branch) as well as a supply of repaired scanners. I usually found that if someone sent in a scanner with a note saying &quot;This doesn't work&quot; that the scanner might be good but it had a bad cable, while another one would have a good cord but had been dropped too many times so I usually had a supply of 2 or 3 second hand scanners available as well as 7 brand new units. My experience was that a new scanner would last 3-5 years - mostly depending on how many times staff dropped it or it got knocked off of its stand onto the floor.&quot;</li>
+</ul></li>
+</ul></li>
+<li>Metrologic Voyager MS9540</li>
+<li>Handheld 3800</li>
+<li>Symbol LS4208</li>
+</ul>
