@@ -277,7 +277,7 @@ The other thing to note is that rather than writing `LEFT JOIN issues co ON co.b
 
 ## The rubber meets the road
 
-Luckily, Koha makes this almost drop off a logs simple. In most cases, because you can almost always join on `biblionumber`, `itemnumber`, `borrowernumber` or `branchcode`. In Koha, there are 42 tables that use `borrowernumber`, 32 that use `branchcode`, 26 that use `biblionumber` and 20 that use `itemnumber`.
+You can almost always join on `biblionumber`, `itemnumber`, `borrowernumber` or `branchcode`. In Koha, there are 42 tables that use `borrowernumber`, 32 that use `branchcode`, 26 that use `biblionumber` and 20 that use `itemnumber`. This makes it very easy to join the `biblio`, `biblioitems`, `items` and `borrowers` tables with any other table that uses one of those keys.
 
 The `biblio` table is the basic unit of bibliographic information -- it contains `biblio.title`, which is the best way to show the title of a book in Koha. The `items` table shows actual copies that show up in Koha. The `issues` table shows currently checked out items -- it contains both `itemnumber` and `borrowernumber` 
 
@@ -322,7 +322,7 @@ The `zebraqueue` table contains information about whether or not an item has bee
 
 There are a few advanced topics in SQL that I didn't cover here -- some operations such as `min`, `max`, `sum` and `count` are called "aggregate operations" ... i.e. they work on groups of data rather than individual rows. These often require the use of a `GROUP BY` clause. You can find a simple example at [Circ actions on date](https://wiki.koha-community.org/wiki/SQL_Reports_Circulation#All_Circ_Actions_on_Date), which specifies a date in the where clause, then counts circulation grouped by type (issue, renew, return, etc.).
 
-Querying marc data: `biblioitems.marcxml` contains MARC data in XML format. This can be queried using MySQL's `ExtractValue` function. See [Query MARC](https://wiki.koha-community.org/wiki/SQL_Reports_Library#Query_MARC). Please note that in Koha 17.05, marc XML data will be stored in a table called `biblio_metadata`. Koha will have a tool available which will convert your old `biblioitems.marcxml` queries to use the new meta data table instead.
+Querying MARC data: `biblioitems.marcxml` contains MARC data in XML format. This can be queried using MySQL's `ExtractValue` function. See [Query MARC](https://wiki.koha-community.org/wiki/SQL_Reports_Library#Query_MARC). Please note that in Koha 17.05, MARC XML data will be stored in a table called `biblio_metadata`. Koha will have a tool available which will convert your old `biblioitems.marcxml` queries to use the new meta data table instead.
 
 ---
 
