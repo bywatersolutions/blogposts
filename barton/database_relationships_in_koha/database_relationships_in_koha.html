@@ -1,0 +1,275 @@
+<h1 id="relationships-between-tables-in-koha">Relationships between tables in Koha</h1>
+<p>In an ongoing effort to help our partners write reports in Koha, I'd like to highlight the relationships between database tables in Koha.</p>
+<h2 id="a-review-of-the-basics-of-sql">A review of the basics of SQL</h2>
+<p>Just for review, let's look at some elementary SQL. Let's say that we have two tables, <code>person</code> and <code>person_dates</code>. The <code>person</code> table contains an id number, the person's first name, and the person's surname, like so:</p>
+<pre><code>+----+---------+-----------+
+| id | surname | firstname |
++----+---------+-----------+
+| 1  | Doe     | John      |
+| 2  | Doe     | Jane      |
++----+---------+-----------+</code></pre>
+<p>The <code>person_dates</code> table has its own id number, but also contains a <code>person_id</code> number that refers to the id number from the <code>person</code> table:</p>
+<pre><code>+----+-----------+---------------+------------+
+| id | person_id | label         | date       |
++----+-----------+---------------+------------+
+| 1  | 1         | Date of Birth | 1970-11-22 |
+| 2  | 1         | Married       | 2004-05-12 |
+| 3  | 2         | Married       | 2004-05-12 |
+| 4  | 2         | Date of Birth | 1975-12-26 |
++----+-----------+---------------+------------+</code></pre>
+<p>We can look up all of the values for <code>firstname</code> in the <code>person</code> table by using a <code>SELECT</code> statement:</p>
+<pre><code>SELECT
+    firstname
+FROM
+    person</code></pre>
+<p>Which would give us</p>
+<pre><code>+-----------+
+| firstname |
++-----------+
+| John      |
+| Jane      |
++-----------+</code></pre>
+<p>The sections in a SQL query are known as 'clauses'. Fields in the SELECT clause are separated by commas. If we want to see both the first name and the surname, we can write</p>
+<pre><code>SELECT
+    firstname,
+    surname
+FROM
+    person</code></pre>
+<p>Which would give us</p>
+<pre><code>+-----------+---------+
+| firstname | surname |
++-----------+---------+
+| John      | Doe     |
+| Jane      | Doe     |
++-----------+---------+</code></pre>
+<p>If we only want to see that information for Jane Doe, we can use a <code>WHERE</code> clause:</p>
+<pre><code>SELECT
+    firstname, surname
+FROM
+    person
+WHERE
+    firstname = &#39;Jane&#39;
+
++-----------+---------+
+| firstname | surname |
++-----------+---------+
+| Jane      | Doe     |
++-----------+---------+</code></pre>
+<p>Running queries on a single table doesn't give us much information... who are John and Jane Doe? What's their relationship? Inquiring minds want to know! Taking a page from the <code>SELECT</code> clause, let's list the tables separated by commas:</p>
+<pre><code>SELECT
+    *
+FROM
+    person,
+    person_dates
+
++----+---------+-----------+----+-----------+---------------+------------+
+| id | surname | firstname | id | person_id | label         | date       |
++----+---------+-----------+----+-----------+---------------+------------+
+| 1  | Doe     | John      | 1  | 1         | Date of Birth | 1970-11-22 |
+| 1  | Doe     | John      | 2  | 1         | Married       | 2004-05-12 |
+| 1  | Doe     | John      | 3  | 2         | Married       | 2004-05-12 |
+| 1  | Doe     | John      | 4  | 2         | Date of Birth | 1975-12-26 |
+| 2  | Doe     | Jane      | 1  | 1         | Date of Birth | 1970-11-22 |
+| 2  | Doe     | Jane      | 2  | 1         | Married       | 2004-05-12 |
+| 2  | Doe     | Jane      | 3  | 2         | Married       | 2004-05-12 |
+| 2  | Doe     | Jane      | 4  | 2         | Date of Birth | 1975-12-26 |
++----+---------+-----------+----+-----------+---------------+------------+</code></pre>
+<p>Well... that doesn't look quite right... we've got two people, but four lines that say <code>Date of Birth</code>. Unless John and Jane Doe have the rather exceptional quality of being born twice, there's a problem with our logic.</p>
+<p>Let's do a bit of trouble shooting...</p>
+<pre><code>SELECT
+    *
+FROM
+    person_dates;
+
++----+-----------+---------------+------------+
+| id | person_id | label         | date       |
++----+-----------+---------------+------------+
+| 1  | 1         | Date of Birth | 1970-11-22 |
+| 2  | 1         | Married       | 2004-05-12 |
+| 3  | 2         | Married       | 2004-05-12 |
+| 4  | 2         | Date of Birth | 1975-12-26 |
++----+-----------+---------------+------------+</code></pre>
+<p>So ... we know that John Doe's Date of Birth is 1970-11-22, but line 4 shows his date of birth as 1975-12-26. Anything stand out on that line? Ah! the <code>person_id</code> is <code>2</code> ... that belongs to Jane Doe. So maybe we need to add a where clause:</p>
+<pre><code>SELECT
+    *
+FROM
+    person, person_dates
+WHERE
+    person.id = person_dates.person_id
+
++----+---------+-----------+----+-----------+---------------+------------+
+| id | surname | firstname | id | person_id | label         | date       |
++----+---------+-----------+----+-----------+---------------+------------+
+| 1  | Doe     | John      | 1  | 1         | Date of Birth | 1970-11-22 |
+| 1  | Doe     | John      | 2  | 1         | Married       | 2004-05-12 |
+| 2  | Doe     | Jane      | 3  | 2         | Married       | 2004-05-12 |
+| 2  | Doe     | Jane      | 4  | 2         | Date of Birth | 1975-12-26 |
++----+---------+-----------+----+-----------+---------------+------------+</code></pre>
+<p>Ah, that looks better!</p>
+<p>It turns out, there's a different way of writing the <code>FROM</code> clause, that makes this more explicit:</p>
+<pre><code>SELECT
+    *
+FROM
+    person
+    INNER JOIN person_dates ON person.id = person_dates.person_id</code></pre>
+<p>Let's say that we're doing some detective work... we're thinking that people who are married on the same day are probably married to each other. We can use a <code>WHERE</code> clause to suss that out:</p>
+<pre><code>SELECT
+    *
+FROM
+    person
+    INNER JOIN person_dates ON person.id = person_dates.person_id
+WHERE
+    label = &#39;Married&#39;
+
++----+---------+-----------+----+-----------+---------+------------+
+| id | surname | firstname | id | person_id | label   | date       |
++----+---------+-----------+----+-----------+---------+------------+
+| 1  | Doe     | John      | 2  | 1         | Married | 2004-05-12 |
+| 2  | Doe     | Jane      | 3  | 2         | Married | 2004-05-12 |
++----+---------+-----------+----+-----------+---------+------------+</code></pre>
+<p>Oh, look they're married to each other. How sweet.</p>
+<p>... and ...</p>
+<pre><code>SELECT
+    *
+FROM
+    person
+WHERE
+    id &gt; 2
+
++----+---------+-----------+
+| id | surname | firstname |
++----+---------+-----------+
+| 3  | Doe     | J.K.      |
++----+---------+-----------+</code></pre>
+<p>The miracle of life!</p>
+<p>Now, let's try an <code>INNER JOIN</code> again ... we won't use the <code>WHERE</code> clause, because we know that little J.K. is too young to be married...</p>
+<pre><code>SELECT
+    *
+FROM
+    person
+    INNER JOIN person_dates ON person.id = person_dates.person_id
+
++----+---------+-----------+----+-----------+---------------+------------+
+| id | surname | firstname | id | person_id | label         | date       |
++----+---------+-----------+----+-----------+---------------+------------+
+| 1  | Doe     | John      | 1  | 1         | Date of Birth | 1970-11-22 |
+| 1  | Doe     | John      | 2  | 1         | Married       | 2004-05-12 |
+| 2  | Doe     | Jane      | 3  | 2         | Married       | 2004-05-12 |
+| 2  | Doe     | Jane      | 4  | 2         | Date of Birth | 1975-12-26 |
++----+---------+-----------+----+-----------+---------------+------------+</code></pre>
+<p>Wait? <em>Where's little J.K.???</em> Before we call the cops, let's take a careful look around...</p>
+<pre><code>SELECT count(*) FROM person WHERE firstname = &#39;J.K.&#39;</code></pre>
+<p>Shows <code>count(*)</code> is 1, so we know that 'J.K.' is still in the <code>person</code> table. (oh, thank goodness, I would never forgive myself... ). So what happened?</p>
+<pre><code>SELECT * from person_dates where person_id = 3;</code></pre>
+<p>Returns no rows... the doctor hasn't filled out the birth certificate yet. In this case, we want a <code>LEFT JOIN</code>, instead of an <code>INNER JOIN</code>:</p>
+<pre><code>SELECT
+    *
+FROM
+    person
+    LEFT JOIN person_dates ON person.id = person_dates.person_id
+
++----+---------+-----------+----+-----------+---------------+------------+
+| id | surname | firstname | id | person_id | label         | date       |
++----+---------+-----------+----+-----------+---------------+------------+
+| 1  | Doe     | John      | 1  | 1         | Date of Birth | 1970-11-22 |
+| 1  | Doe     | John      | 2  | 1         | Married       | 2004-05-12 |
+| 2  | Doe     | Jane      | 3  | 2         | Married       | 2004-05-12 |
+| 2  | Doe     | Jane      | 4  | 2         | Date of Birth | 1975-12-26 |
+| 3  | Doe     | J.K.      |    |           |               |            |
++----+---------+-----------+----+-----------+---------------+------------+</code></pre>
+<p>... and J.K. Doe makes an appearance!</p>
+<h2 id="a-koha-specific-example">A Koha specific example</h2>
+<p>Most SQL queries are of the form <code>SELECT ... from table1 LEFT JOIN table2 ... WHERE ...</code> there are a few more wrinkles that <em>can</em> be thrown in, but that's all you <em>need</em> to know about SQL. Here's an example of finding out who checked out what, and when:</p>
+<pre><code>SELECT
+    p.firstname,
+    p.surname,
+    b.title,
+    co.issuedate as &#39;checked out&#39;
+FROM
+    borrowers p
+    LEFT JOIN issues co using (borrowernumber)
+    LEFT JOIN items i using (itemnumber)
+    LEFT JOIN biblio b using (biblionumber)</code></pre>
+<p>There are a couple of things to notice here: in the <code>SELECT</code> clause, we've written <code>p.firstname</code> ... the <code>p</code> in this case is an <em>alias</em>, set in the <code>FROM</code> clause. Writing <code>borrowers p</code> says, essentially &quot;We're calling the borrowers table <code>p</code>&quot;.</p>
+<h3 id="a-word-about-aliases">A word about aliases</h3>
+<p>Common aliases used in queries against the Koha database:</p>
+<ul>
+<li><code>biblio b</code> or <code>biblio bib</code></li>
+<li><code>items i</code></li>
+<li><code>biblioitems bi</code></li>
+<li><code>statistics s</code></li>
+<li><code>borrowers p</code> -- for <strong>p</strong>atrons</li>
+<li><code>issues co</code> -- for <strong>c</strong>heck-<strong>o</strong>uts</li>
+<li><code>reserves h</code> -- for <strong>h</strong>olds</li>
+<li><code>deleteditems di</code> -- for <strong>d</strong>eleted <strong>i</strong>tems</li>
+<li><code>borrower_attributes a</code> -- for <strong>a</strong>ttribute</li>
+<li><code>aqorders o</code> -- for <strong>o</strong>rders</li>
+</ul>
+<p>These are not required, but if you do use aliases, these work well, because they don't conflict with each other (i.e. you can't use <code>biblio b</code> and <code>borrowers b</code> in the same query).</p>
+<p>The use of aliases isn't strictly necessary... you could write <code>SELECT borrowers.firstname, borrowers.surname, biblio.title...</code>, and the query would work just as well. In fact, as long as the column names are unique, you can leave off the table names entirely: <code>SELECT firstname, surname, ...</code>. There are cases where the column names are <em>not</em> unique ... for instance, both borrowers and biblio have a <code>title</code> field. They're entirely un-related. In this case, you <em>must</em> specify which table you're asking for:</p>
+<pre><code>SELECT
+    firstname,
+    surname,
+    title,
+    issuedate as &#39;checked out&#39;
+FROM
+    borrowers p
+    LEFT JOIN issues co using (borrowernumber)
+    LEFT JOIN items i using (itemnumber)
+    LEFT JOIN biblio b using (biblionumber)</code></pre>
+<p>Gives the error message <code>Column 'title' in field list is ambiguous</code>.</p>
+<p>The other thing to note is that rather than writing <code>LEFT JOIN issues co ON co.borrowernumber = p.borrowernumber</code>, we're using <code>LEFT JOIN statistics co using (borrowernumber)</code>. This also has the advantage of making SQL aware of the fact that borrowernumber is exactly the same between both tables ... i.e. it's unique. You can only do this if the column names are exactly the same between tables.</p>
+<h2 id="the-rubber-meets-the-road">The rubber meets the road</h2>
+<p>Luckily, Koha makes this almost drop off a logs simple. In most cases, because you can almost always join on <code>biblionumber</code>, <code>itemnumber</code>, <code>borrowernumber</code> or <code>branchcode</code>. In Koha, there are 42 tables that use <code>borrowernumber</code>, 32 that use <code>branchcode</code>, 26 that use <code>biblionumber</code> and 20 that use <code>itemnumber</code>.</p>
+<p>The <code>biblio</code> table is the basic unit of bibliographic information -- it contains <code>biblio.title</code>, which is the best way to show the title of a book in Koha. The <code>items</code> table shows actual copies that show up in Koha. The <code>issues</code> table shows currently checked out items -- it contains both <code>itemnumber</code> and <code>borrowernumber</code></p>
+<p>Notice that the <code>items</code> table above is in the <code>FROM</code> clause, but not mentioned in the <code>SELECT</code> clause... this is necessary because there is no <code>biblionumber</code> field in the <code>issues</code> table. The art of writing tables lies in thinking about how to connect tables such as <code>borrowers</code> and <code>items</code> or <code>biblio</code> and <code>issues</code>.</p>
+<p>In the case of Borrowers and Items, you have to think &quot;What does a borrower do with an item?&quot; ... the answer is that a borrower checks out an item... so we look at the checkouts table ... which, when Koha was designed, was thought of as 'issuing an item to a borrower', so we look in the issues table. Looking at the issues table, you can see that it has both <code>borrowernumber</code> and <code>itemnumber</code>, so it's well suited to joining the two.</p>
+<p>The case of <code>biblio</code> and <code>issues</code> is slightly more subtle. In this case, The biblio record contains information, but it doesn't point to anything real that can be checked out... the biblio record is more like the idea of a book rather than a paper copy that you can lay your hands on. The item record actually points to the physical copy... you can't check out the idea of a book, you have to take the physical book to the circ desk and check <em>that</em> out ... and that's what the item record represents... so the item record has an itemnumber as well as a biblionumber. The issues table only contains the itemnumber. If you want to see the title of the book that was checked out, you have to join biblios to issues via items.</p>
+<h3 id="less-obvious-joins">Less obvious joins</h3>
+<p>After you get away from the big four columns <code>biblionumber</code>, <code>itemnumber</code>, <code>borrowernumber</code> and <code>branchcode</code>, things get a bit more challenging. Here are a few more that you should know about.</p>
+<h4 id="authorized-values">Authorized Values</h4>
+<p>This is a lookup table for various codes in the system -- it holds human readable text to be displayed on the staff client or opac, for various codes in the system like collection codes or shelving location. Be aware, when using this table that it uses the British spelling <code>authorised_values</code> rather than the American <code>authorised_values</code>. The table consists of a <code>category</code> field, which specifies whether you're looking up collection codes ( category <code>ccode</code>), lost statuses (category <code>lost</code>), shelving locations (category <code>loc</code>), etc. The column <code>authorised_value</code> will match to the code being looked up in the database, and the columns <code>lib</code> and <code>lib_opac</code> are the values that display in the staff client and opac, respectively.</p>
+<h4 id="items">Items</h4>
+<ul>
+<li><code>items.itype</code> is used instead of <code>items.itemtype</code>. No one knows why.</li>
+<li><code>items.homebranch</code>, <code>items.holdingbranch</code>. Both can join to <code>branchcode</code>.</li>
+<li><code>items.itemlost</code> links to <code>authorised_values.authorised_value</code> where <code>authorised_values.category = 'lost'</code>.</li>
+<li><code>items.location</code> links to <code>authorised_values</code> using <code>category = 'loc'</code>.</li>
+<li><code>items.ccode</code> (Collection code) links to <code>authorised_values</code> using <code>category = 'ccode'</code>.</li>
+</ul>
+<h4 id="serials">Serials</h4>
+<p>The <code>subscription</code> table is the backbone of the serials module. <code>subscriptionid</code> is the primary key, analogous to <code>biblionumber</code> for a biblio record - it is unique id). A subscription links to a bib record via <code>biblionumber</code> (allowing us to see the title). The subscription table also tracks the frequency with which serials are supposed to arrive (via <code>subscription_frequencies</code>) and the numbering of the serials (via <code>subscription_numberpatterns</code>).</p>
+<p>Individual issues for a subscription are tracked as rows in the <code>serials</code> table. These may link to items using the <code>serialitems</code> table (if the subscription is set to create item records upon receipt of an issue). The serial table contains the key <code>serialid</code> as well as the <code>subscriptionid</code> and <code>biblionumber</code> (though not as foreign keys).</p>
+<h4 id="logs">Logs</h4>
+<p>The <code>action_logs</code> table shows information logged when various things change in Koha -- bibs and items cataloged, borrower information changed, item check-in and check out, system preference changes, etc. Because so many different aspects of Koha can be logged, it's not always clear how <code>action_logs</code> links to other tables. You can find a table showing what logs are available, how they're enabled, and what fields are linked to in the action_logs section of the <a href="https://wiki.koha-community.org/wiki/SQL_Reports_Library#action_logs">Koha Reports Library</a>.</p>
+<h4 id="zebraqueue">Zebraqueue</h4>
+<p>The <code>zebraqueue</code> table contains information about whether or not an item has been indexed and is search-able in Koha. Because the zebra queue contains information about bout biblio data and authority record data, it must join to <code>biblionumber</code> via <code>zebraqueue.biblio_auth_id</code>.</p>
+<h2 id="where-to-go-from-here.">Where to go from here.</h2>
+<p>There are a few advanced topics in SQL that I didn't cover here -- some operations such as <code>min</code>, <code>max</code>, <code>sum</code> and <code>count</code> are called &quot;aggregate operations&quot; ... i.e. they work on groups of data rather than individual rows. These often require the use of a <code>GROUP BY</code> clause. You can find a simple example at <a href="https://wiki.koha-community.org/wiki/SQL_Reports_Circulation#All_Circ_Actions_on_Date">Circ actions on date</a>, which specifies a date in the where clause, then counts circulation grouped by type (issue, renew, return, etc.).</p>
+<p>Querying marc data: <code>biblioitems.marcxml</code> contains MARC data in XML format. This can be queried using MySQL's <code>ExtractValue</code> function. See <a href="https://wiki.koha-community.org/wiki/SQL_Reports_Library#Query_MARC">Query MARC</a>. Please note that in Koha 17.05, marc XML data will be stored in a table called <code>biblio_metadata</code>. Koha will have a tool available which will convert your old <code>biblioitems.marcxml</code> queries to use the new meta data table instead.</p>
+<hr />
+<h2 id="cheat-sheet">Cheat Sheet</h2>
+<p>Most queries have the form</p>
+<pre><code>SELECT
+    A.aaa,
+    B.bbb
+FROM
+    ASDF A
+    LEFT JOIN BEEN_THERE_DONE_THAT B using (key)
+WHERE
+    A.xyz = 100</code></pre>
+<p><code>LEFT JOIN</code> allows you to see the results from A and B, even if there is no matching row in B.(you will see blank fields on any rows selected from B).</p>
+<p><code>INNER JOIN</code> will not show any rows if data in B does not match (think about poor J.K. Doe, missing because her birthday hadn't been entered into the database yet).</p>
+<p>If you are joining on two tables where the names of the keys differ, you must use the syntax <code>... on T1.some_key = T2.some_other_key</code> rather than <code>... USING (nifty_key)</code></p>
+<p>Many tables in Koha can be joined by <code>itemnumber</code>, <code>biblionumber</code>, <code>borrowernumber</code> or <code>branchcode</code>.</p>
+<p>These aliases are used a lot by the community because they don't conflict with each other:</p>
+<p><code>biblio b</code> or <code>biblio bib</code>, <code>items i</code>, <code>biblioitems bi</code>, <code>statistics s</code>, <code>borrowers p</code>, <code>issues co</code>, <code>reserves h</code>, <code>deleteditems di</code>, <code>borrower_attributes a</code>, <code>aqorders o</code>.</p>
+<h3 id="useful-links">Useful links</h3>
+<ul>
+<li>Koha database schema: <a href="http://schema.koha-community.org/master/" class="uri">http://schema.koha-community.org/master/</a></li>
+<li>Koha reports library: <a href="https://wiki.koha-community.org/wiki/SQL_Reports_Library" class="uri">https://wiki.koha-community.org/wiki/SQL_Reports_Library</a></li>
+<li>Circulation reports: <a href="https://wiki.koha-community.org/wiki/SQL_Reports_Circulation" class="uri">https://wiki.koha-community.org/wiki/SQL_Reports_Circulation</a></li>
+<li>Holds reports: <a href="https://wiki.koha-community.org/wiki/SQL_Reports_Holds" class="uri">https://wiki.koha-community.org/wiki/SQL_Reports_Holds</a></li>
+<li>Patron reports: <a href="https://wiki.koha-community.org/wiki/SQL_Reports_Patrons" class="uri">https://wiki.koha-community.org/wiki/SQL_Reports_Patrons</a></li>
+</ul>
+<hr />
