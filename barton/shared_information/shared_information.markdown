@@ -1,13 +1,16 @@
 # Sharing information in the Koha community.
 
-One of the strongest parts of an open source community is the way that
-information is shared among its members. This happens in a number of
-different ways. We share information in mailing lists, on IRC, via bug
-reports and via the Koha wiki. When you're first getting started, joining
-the IRC channel and subscribing to the mailing list is a great way to
-join the community, both to benefit from the knowledge of others, and to
-contribute to the dialog. This raw information is collated in various ways
--- via [dashboards](http://dashboard.koha-community.org/), in the form of
+One of the strongest parts of an open source community is the
+way that information is shared among its members. This happens
+in a number of different ways. We share information in mailing
+lists, on [IRC](http://webchat.oftc.net/?channels=koha), via [bug
+reports](https://bugs.koha-community.org/bugzilla3/describecomponents.cgi?product=Koha)
+and via the [Koha wiki](https://wiki.koha-community.org/wiki/Main_Page).
+When you're first getting started, joining the IRC channel and
+subscribing to the mailing list is a great way to join the community,
+both to benefit from the knowledge of others, and to contribute to
+the dialog. This raw information is collated in various ways -- via
+[dashboards](http://dashboard.koha-community.org/), in the form of
 [source code](http://git.koha-community.org/gitweb/?p=koha.git;a=tree),
 and in [documentation](https://koha-community.org/documentation/).
 
