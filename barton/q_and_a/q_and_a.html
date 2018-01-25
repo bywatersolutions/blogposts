@@ -1,0 +1,132 @@
+<h2 id="acquisitions">Acquisitions</h2>
+<p><em>How do I merge records?</em></p>
+<p>Go to the cataloging search and search for the records you want to merge. Select the records you want to merge. Select which record you want to be the main record and then select the fields you want to merge.</p>
+<p><em>How do I view patron suggestions from multiple branches?</em></p>
+<p>On the suggestions page, click the &quot;Acquisition information&quot; heading, then select &quot;Any&quot; under the &quot;For&quot; pulldown. Click &quot;Go&quot;</p>
+<h2 id="batch-deletions">Batch Deletions</h2>
+<p><em>How can I delete Ebook records in batch?</em></p>
+<p>If you have a file of urls or 'bookids' from your vendor, we may be able to run a script to delete these bibs for you. Send us the file you received from the vendor!</p>
+<h2 id="cataloging">Cataloging</h2>
+<p><em>How do I move an order from one bib to another?</em></p>
+<p>You have to transfer the item from one bib to another. Go the catalog, find the bib you want to transfer to and click edit. Then, click Attach item and enter the barcode for the item you want to transfer.</p>
+<p><em>Where are the material types set that control the icons in the OPAC?</em></p>
+<p>Marc leader and marc 008. See <a href="http://manual.koha-community.org/16.11/en/cataloging.html#basicatalog" class="uri">http://manual.koha-community.org/16.11/en/cataloging.html#basicatalog</a></p>
+<p><em>Why aren't item records being created when I stage MARC records for import?</em></p>
+<p>The location used in the MARC modification template didn't use the branch code.</p>
+<p><em>Why am i prompted to enter a duedate when checking an item out?</em></p>
+<p>Check circ rules for hard duedate</p>
+<h2 id="cronjobs">Cronjobs</h2>
+<p><em>Can I have headers added to the cron reports sent to me?</em></p>
+<p>Yes, you can using a select and union of the report. Example:</p>
+<pre><code>SELECT
+    &quot;Current&quot; AS &quot;Current&quot;,
+    &quot;Cost total&quot; AS &quot;Cost total&quot;,
+    &quot;Replacement total&quot; AS &quot;Replacement total&quot;,&quot;Total&quot; AS &quot;Total&quot;UNION ALL
+SELECT
+    &#39;Current&#39;,
+    SUM(price) AS &quot;Cost total&quot;,
+    SUM(replacementprice) AS &quot;Replacement total&quot;,SUM(price)+SUM(replacementprice) AS &quot;Total&quot;
+FROM
+    items </code></pre>
+<p><em>Items are not moving from cart, why not?</em></p>
+<ol style="list-style-type: lower-alpha">
+<li>check that permanent location is not set to CART b) check cron job.</li>
+</ol>
+<p><em>Why aren't membership expiry notices being sent?</em></p>
+<p>The MEMBERSHIP_EXPIRY notice is sent by the membership_expiry.pl cron job. If this isn't running, the notices will not be sent.</p>
+<h2 id="opacusersjs">OPACUsersJS</h2>
+<p><em>Why is the opac URL being prepended to the Online Resource link?</em></p>
+<p>If 856$u doesn't start with <code>http://</code>, Koha will prepend OpacBaseURL.</p>
+<p><em>(EDS) What is the field/subfield that contains a persistent, unique identifier for each record?</em></p>
+<p>This depends on whether they're looking at bibliographic data or item level (holdings) data. The primary key for bibliographic data is stored in MARC 999$c. The primary key for item data is stored in MARC 952$9</p>
+<h2 id="finesaccounts">Fines/Accounts</h2>
+<p><em>When checking out an item, Why is the due date is prior to the checkout date?</em></p>
+<p>In the circulation and fine rule table, check to see if this item type and patron category have a hard due date set - and if this date is in the past.</p>
+<h2 id="holds">Holds</h2>
+<p><em>How do I keep a patron from placing a hold on an item they already have checked out?</em></p>
+<p>Set AllowHoldsOnPatronsPossessions to &quot;Don't allow&quot;</p>
+<p><em>Number of reserves that can be placed does not respect circulation rules?</em></p>
+<p>Check MaxReserves system preference.</p>
+<h2 id="itiva">Itiva</h2>
+<p><em>Hold notices are going out by phone, but overdue notices are not. Why not?</em></p>
+<p>Make sure that 'phone' is checked in the overdue notice triggers.</p>
+<h2 id="jquery">jquery</h2>
+<p><em>How do I create a search widget in a separate web page?</em></p>
+<p>See <a href="http://bywatersolutions.com/2011/11/28/embedable-koha-search-form/" class="uri">http://bywatersolutions.com/2011/11/28/embedable-koha-search-form/</a></p>
+<h2 id="ldapsaml">LDAP/SAML</h2>
+<p><em>Why am I seeing an LDAP software error?</em></p>
+<p>You must define a username and password block, even if you aren't using them</p>
+<h2 id="notifications">Notifications</h2>
+<p><em>How do I turn ACCTDETAILS notices on and off?</em></p>
+<p>This is controlled by the syspref AutoEmailOPACUser which can be set to &quot;send&quot; or &quot;don't send&quot;.</p>
+<h2 id="opac">OPAC</h2>
+<p><em>How do I hide the DDC classification on the OPAC?</em></p>
+<p>There needs to be some jquery added to your opacuserjs system preference to hide this:</p>
+<pre><code>$(document).ready(function(){  $(&quot;.ddc&quot;).hide();}); </code></pre>
+<p><em>Why am I getting a cover image for a different title?</em></p>
+<p>The ISBN may be wrong; look up the ISBN in google and make sure that the title found matches the bib title.</p>
+<h2 id="patrons">Patrons</h2>
+<p><em>how do I delete a patron?</em></p>
+<p>Go to 'more' menu on patron menu-bar on all patron screens.</p>
+<p><em>Why isn't Koha detecting duplicate patrons?</em></p>
+<p>Koha detects duplicate patrons using Firstname, Surname and Date of Birth. Unless all three are an exact match, the patron isn't considered a dup.</p>
+<h2 id="plugin-system">Plugin System</h2>
+<p><em>How do I change coverflow style?</em></p>
+<p>In the 'mapping' section of the coverflow configuration, change 'style:' from 'coverflow' to 'carousel', 'wheel' or 'flat'.</p>
+<h2 id="production-data-changes">Production Data Changes</h2>
+<p><em>Batch editing 30,000 items 1000 at a time is going to take forever. Can I make that faster?</em></p>
+<p>The system preference MaxItemsToProcessForBatchMod can be increased from 1000. Probably best to re-set it to 1000 when done with a large batch.</p>
+<p><em>How do I fix the &quot;stacked page numbers&quot; on the staged marc management page?</em></p>
+<p>Look at <a href="https://bugs.koha-community.org/bugzilla3/show_bug.cgi?id=19643#c1">bug 19643: Pagination buttons on staged marc management are stacking instead of inline</a> -- add that CSS to intranetusercss syspref.</p>
+<h2 id="reports">Reports</h2>
+<p><em>How do I generate CSV/TSV for report that's too big to run from the staff client?</em></p>
+<p>Bywater staff can Log into the server, run <code>runreport.pl</code> from the command line.</p>
+<h2 id="reports---cataloging">Reports - Cataloging</h2>
+<p><em>How do I delete ebooks?</em></p>
+<p>Migrations has a script to do this, to do this by book_id. (If there are no book_ids, migrations will have to take care of this on a case by case basis)</p>
+<h2 id="reports---circulation">Reports - Circulation</h2>
+<p><em>Where can partners go to learn SQL Reports?</em></p>
+<p>W3schools SQL tutorial: <a href="http://www.w3schools.com/sql/" class="uri">http://www.w3schools.com/sql/</a></p>
+<p>This isn't koha specific but once you get the basic structure you can use the Koha reports library and the Koha schema to begin to build out reports.</p>
+<p><a href="https://wiki.koha-community.org/wiki/SQL_Reports_Library" class="uri">https://wiki.koha-community.org/wiki/SQL_Reports_Library</a></p>
+<p><a href="http://schema.koha-community.org/" class="uri">http://schema.koha-community.org/</a></p>
+<p>Taking reports from the library and making changes is a good way to learn too. The basic syntax for a report is a combination of three statements:</p>
+<p>1 - <code>SELECT</code>: This is where you define the information you want, and you determine the name of a column by checking the table in the schema e.g. for biblio look here:</p>
+<ul>
+<li><a href="http://schema.koha-community.org/master/tables/biblio.html" class="uri">http://schema.koha-community.org/master/tables/biblio.html</a></li>
+<li>find column names: author, title, notes, biblionumber...</li>
+</ul>
+<p>2 - <code>FROM</code>: This is where you name the table you are using, see schema for tables available (e.g. biblio, borrowers, issues, etc.)</p>
+<p>3 - <code>WHERE</code>: These are conditions on the data. E.g. 'Items that are checked out' translates to items.onloan IS NOT NULL</p>
+<h2 id="searching">Searching</h2>
+<p><em>The availablity numbers don't look right on the search results screen, why not?</em></p>
+<p>There is a limit to how many items Koha will check in search results -- look at the system preference MaxSearchResultsItemsPerRecordStatusCheck</p>
+<h2 id="searching-1">Searching</h2>
+<p><em>Why am I getting an internal server error when I search?</em></p>
+<p>The item homebranch or holdingbranch is set to a branchcode that is not defined in the branches table.</p>
+<p>Or</p>
+<p><code>items.onloan</code> is set to <code>0000-00-00 00:00:00</code>.</p>
+<p><em>Why do some items show as available and checked out in search results at the same time?</em></p>
+<p>Who an item was checked out to is stored in the 'issues' table in Koha. The due date is also stored in <code>items.onloan</code>, which sometimes gets st to null.</p>
+<p><em>Why don't bibs with lots of items (e.g. serials) show in zebra search?</em></p>
+<p>This is caused by <a href="https://bugs.koha-community.org/bugzilla3/show_bug.cgi?id=15399">Bug 15399 MARCXML records larger than 1 MB (1048576 bytes) are not searchable</a></p>
+<p>Bywater has some work-arounds for this.</p>
+<p><em>I have an bib that has many items attached, why do I only see 20 in the search results?</em></p>
+<p>This is controlled by the maxItemsInSearchResults system preference.</p>
+<h2 id="slips-and-notices">Slips and Notices</h2>
+<p><em>Cost savings on ISSUESLIP?</em></p>
+<p><a href="http://bywatersolutions.com/2015/09/21/koha-receipt-cost-savings/" class="uri">http://bywatersolutions.com/2015/09/21/koha-receipt-cost-savings/</a></p>
+<p><em>Item information missing in Advance Notices?</em></p>
+<p><a href="http://bywatersolutions.com/2016/02/01/proper-koha-notice-syntax/" class="uri">http://bywatersolutions.com/2016/02/01/proper-koha-notice-syntax/</a></p>
+<h2 id="staff-client">Staff Client</h2>
+<p><em>How do I set up item types in purchase suggestions?</em></p>
+<p>See <a href="http://bywatersolutions.com/2017/05/17/purchase-suggestions-opac/" class="uri">http://bywatersolutions.com/2017/05/17/purchase-suggestions-opac/</a></p>
+<h2 id="system-administration">System Administration</h2>
+<p><em>Why are we getting 503 errors when navigating to staff / opac urls?</em></p>
+<p>This may be an indication that the site is IP restricted/ip address has changed.</p>
+<h2 id="system-error">System Error</h2>
+<p><em>Why do I get a system error when deleting a patron?</em></p>
+<p>Check to make sure that the patron has card number populated.</p>
+<h2 id="tools">Tools</h2>
+<p><em>Why do I get &quot;Upload status: Failed&quot; on stage-marc-import.pl?</em></p>
+<p>The file <code>/tmp/koha\_*\_upload</code> must be owned by the instance user.</p>
