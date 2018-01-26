@@ -9,7 +9,7 @@ bypass the symbolic part of the brain, such as drawing the shape of the
 negative space around an object -- which is something that you can see,
 but not in a way that your brain can attach symbols to. The changes in
 drawing style brought about by choosing to see what is there, versus what
-our mind tells us should be there are startling. These images were drawn
+our mind tells us should be there, are startling. These were drawn
 by the same person, four days apart:
 
 ![Drawing on the Right Side of the Brain before and after](https://static1.squarespace.com/static/5563b147e4b09a14dbb4f0fe/5606d47be4b053dd464f664d/5918bab820099e96149cc148/1498025511572/IMG_0097.JPG?format=750w)
