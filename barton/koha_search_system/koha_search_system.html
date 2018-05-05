@@ -1,0 +1,8 @@
+<h1 id="the-koha-search-system">The Koha Search System</h1>
+<p>Koha has a broad, powerful search system that affects many parts of the ILS. I've recently been working to add Zebra search indexes and custom XSLT transformations, and a broad overview of how all the pieces fit together can often be helpful.</p>
+<p>What does the koha search system do? In broad terms, it takes bibliographic data stored in marcxml format and stores it in a special database so that it can be quickly retrieved by a user. The data must then be written back to Koha so that it can be displayed on screen. The same database is also used when de-duplicating bibliographic data during import.</p>
+<p>The database is indexed, which aids lookup speed and accuracy.</p>
+<h2 id="bibliographic-data">Bibliographic data</h2>
+<p>Information search-able in Koha is stored in a couple of places. Bibliographic information is stored in a table <code>biblio_metadata</code> in a field called <code>metadata</code>. Item information is stored in the <code>items</code> table, then added to the bibliographic data before it is indexed.</p>
+<h2 id="the-search-engine-and-database">The search engine and database</h2>
+<p>Koha currently uses a search engine called <em>Zebra</em>, written by <a href="https://www.indexdata.com/resources/software/zebra/">Index Data</a>. Zebra handles MARC data well, and is built around Z39.50. The Koha community is also working to use <a href="https://en.wikipedia.org/wiki/Elasticsearch">Elastic Search</a> as its search engine. This is in beta release as of Koha 16.11. This write up will document how koha search is configured via Zebra, but I will also show where Elastic Search fits into the system.</p>
