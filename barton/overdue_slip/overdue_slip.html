@@ -1,0 +1,41 @@
+<h1 id="from-the-support-desk">From the Support Desk</h1>
+<h2 id="using-overdues_slip-to-test-overdue-notices.">Using OVERDUES_SLIP To Test Overdue Notices.</h2>
+<p>Setting up overdue slips, (Generally called <code>ODUE</code>, <code>ODUE2</code> and <code>ODUE3</code>) can be a frustrating process. Ideally when making edits to these slips, you would like to make a small change, then immediately look at the results. Unfortunately the <code>overdue_notices.pl</code> cron job only runs once a day, and can't be triggered by staff, so it's impossible to edit and get immediate feedback.</p>
+<p>There is a way around this, however. Under <em>Home &gt; Tools &gt; Notices &amp; slips</em>, there is a notice called <code>OVERDUES_SLIP</code>, which uses the same format as all the overdue notices.</p>
+<div class="figure">
+<img src="images/edit_link.png" />
+
+</div>
+<p>Editing the notice, then choosing the <em>Print</em> section in the editor allows you to set up the notice just like any of the 'ODUE' notices... for instance, this slip uses the same <code>&lt;item&gt; ...&lt;/item&gt;</code> syntax to display the overdue items.</p>
+<div class="figure">
+<img src="images/edit_page.png" />
+
+</div>
+<p>Once the <code>OVERDUES_SLIP</code> has been edited, you can find patrons by creating a report with the following SQL:</p>
+<pre><code>SELECT
+    CONCAT(
+        &#39;&lt;a href=\&quot;/cgi-bin/koha/members/moremember.pl?borrowernumber=&#39;,
+        borrowernumber , &#39;\&quot;&gt;&#39; , cardnumber , &#39;&lt;/a&gt;&#39;
+    ) AS &#39;cardnumber&#39;,
+    firstname,
+    surname,
+    count(*) as overdues
+FROM
+    borrowers
+    INNER JOIN issues USING (borrowernumber)
+WHERE
+    issues.date_due &lt; CURRENT_TIMESTAMP
+GROUP BY borrowernumber
+ORDER BY overdues desc</code></pre>
+<p>The <code>cardnumber</code> column will then be a link to the patron with overdue items. The report has the patron with the most overdue items at the top, which should give you a feeling for how overdues look for patrons with many overdue items.</p>
+<p>Each of these patrons will have a <em>Print overdues</em> menu option under the <em>Print</em> button.</p>
+<div class="figure">
+<img src="images/print_menu.png" />
+
+</div>
+<p>The output looks like this -- what you see in the editor should be reflected on the printed page.</p>
+<div class="figure">
+<img src="images/print_output.png" />
+
+</div>
+<p>Once you are done, you can copy text from <code>OVERDUES_SLIP</code> into one of your <code>ODUE</code> notices, the output should look the same.</p>
